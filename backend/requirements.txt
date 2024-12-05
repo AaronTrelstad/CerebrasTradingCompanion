@@ -1,0 +1,7 @@
+langchain
+langchain-cerebras
+langchain-core
+streamlit
+duckduckgo-search
+wikipedia
+cerebras_cloud_sdk

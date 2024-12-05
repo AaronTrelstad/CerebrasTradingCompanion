@@ -28,13 +28,13 @@ const Dashboard: React.FC = () => {
   const getStock = async () => {
     const response = await axios.get('http://localhost:3000/stock')
 
-    setData(response.data)
+    setData(response.data.results)
   }
 
   useEffect(() => {
     getStock()
 
-    const socket = new WebSocket('ws://localhost:3000');
+    const socket = new WebSocket('ws://localhost:6789');
 
     socket.onmessage = (event) => {
       const wsResponse = JSON.parse(event.data);

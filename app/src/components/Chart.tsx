@@ -9,61 +9,51 @@ interface PredictionsProps {
 const Chart: React.FC<PredictionsProps> = ({ wsData }) => {
   const chartRef = useRef<HighchartsReact.RefObject>(null);
 
-  console.log(wsData)
-
-  const [max, setMax] = useState<number>(0);
-  const [min, setMin] = useState<number>(Infinity);
+  const [historicalData, setHistoricalData] = useState<Array<[number, number]>>([]);
 
   useEffect(() => {
-    if (chartRef.current && chartRef.current.chart) {
-      const chart = chartRef.current.chart;
+    if (wsData?.timestamp && wsData?.price) {
+      const newDataPoint: [number, number] = [Number(wsData.timestamp), Number(wsData.price)];
 
-      const formattedData = [Number(wsData?.timestamp), Number(wsData?.price)];
-
-      chart.series[0].setData(formattedData, true);
+      setHistoricalData((prevData) => [...prevData, newDataPoint]);
     }
   }, [wsData]);
 
   const options: Highcharts.Options = {
     chart: {
-      type: "line",
+      type: 'line',
       animation: true,
       zooming: {
-        type: "x",
+        type: 'x',
       },
     },
     title: {
-      text: "Stock Data",
+      text: 'Stock Data',
     },
     xAxis: {
-      type: "datetime",
+      type: 'datetime',
       title: {
-        text: "Time",
+        text: 'Time',
       },
       tickPixelInterval: 150,
     },
     yAxis: {
       title: {
-        text: "Stock Prices",
+        text: 'Stock Prices',
       },
     },
     series: [
       {
-        type: "line",
-        name: "Stock Price",
-        data: [Number(wsData?.timestamp), Number(wsData?.price)],
+        type: 'line',
+        name: 'Stock Price',
+        data: historicalData, 
       },
-      
     ],
   };
 
   return (
     <div style={{ maxWidth: '100%', margin: '0 auto' }}>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        ref={chartRef}
-      />
+      <HighchartsReact highcharts={Highcharts} options={options} ref={chartRef} />
     </div>
   );
 };
