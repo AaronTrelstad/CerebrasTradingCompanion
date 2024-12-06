@@ -17,7 +17,10 @@ const Predictions: React.FC<PredictionsProps> = ({ data, wsData }) => {
     return <div>Loading...</div>;
   }
 
-  const { signal, confidenceInterval, riskScore } = data;
+  const signal = "Buy"
+  const riskScore = "Medium"
+  const confidenceInterval = 66
+  const pricePrediction = 244.5
 
   const signalColor = (signal: string) => {
     switch (signal) {
@@ -57,13 +60,13 @@ const Predictions: React.FC<PredictionsProps> = ({ data, wsData }) => {
       <Typography variant="body1" style={{ color: signalColor(signal) }}>
         <strong>Signal:</strong> {signal}
       </Typography>
-      <Typography variant="body2" style={{ color: riskScoreColor(riskScore) }}>
+      <Typography variant="body1" style={{ color: riskScoreColor(riskScore) }}>
         <strong>Risk Score:</strong> {riskScore}
       </Typography>
-      <Typography variant="body2" style={{ color: signalColor(riskScore) }}>
-        <strong>Price Prediction:</strong> {riskScore}
+      <Typography variant="body1" style={{ color: signalColor(riskScore) }}>
+        <strong>Price Prediction:</strong> {pricePrediction}
       </Typography>
-      <Typography variant="body2" style={{ color: confidenceColor(confidenceInterval) }}>
+      <Typography variant="body1" style={{ color: confidenceColor(confidenceInterval) }}>
         <strong>Confidence Interval:</strong> {confidenceInterval}%
       </Typography>
     </Paper>
