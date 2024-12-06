@@ -9,7 +9,9 @@ import os
 
 '''
 TODO
-
+1. Create the data processing tooling
+2. Continue to add to the LangGraph
+3. Use another agent to create price predictions, risk analysis and buy/sell/hold signals
 '''
 
 load_dotenv()

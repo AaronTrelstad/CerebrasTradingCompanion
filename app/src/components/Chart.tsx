@@ -7,6 +7,11 @@ interface ChartProps {
 }
 
 /**
+ * TODO
+ * 1. Add colored lines and sections to the graph, using the technical analysis
+ */
+
+/**
  * Component to display the stock chart data
  * 
  * @param ChartProps

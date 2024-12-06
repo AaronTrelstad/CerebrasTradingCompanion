@@ -70,15 +70,15 @@ const Chatbot = () => {
   return (
     <Box
       sx={{
-        maxWidth: 800,
+        maxWidth: 1000,
         margin: "0 auto",
         padding: 3,
         display: "flex",
         flexDirection: "column",
       }}
     >
-      <Typography variant="h4" gutterBottom>
-        Trading Companion
+      <Typography variant="h5" gutterBottom>
+        Chatbot Assistant
       </Typography>
 
       <Box

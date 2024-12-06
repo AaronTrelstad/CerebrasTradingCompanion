@@ -57,11 +57,14 @@ const Predictions: React.FC<PredictionsProps> = ({ data, wsData }) => {
       <Typography variant="body1" style={{ color: signalColor(signal) }}>
         <strong>Signal:</strong> {signal}
       </Typography>
-      <Typography variant="body2" style={{ color: confidenceColor(confidenceInterval) }}>
-        <strong>Confidence Interval:</strong> {confidenceInterval}%
-      </Typography>
       <Typography variant="body2" style={{ color: riskScoreColor(riskScore) }}>
         <strong>Risk Score:</strong> {riskScore}
+      </Typography>
+      <Typography variant="body2" style={{ color: signalColor(riskScore) }}>
+        <strong>Price Prediction:</strong> {riskScore}
+      </Typography>
+      <Typography variant="body2" style={{ color: confidenceColor(confidenceInterval) }}>
+        <strong>Confidence Interval:</strong> {confidenceInterval}%
       </Typography>
     </Paper>
   );

@@ -7,7 +7,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div">
-          Trading Companion
+          Trading Assistant Demo
         </Typography>
       </Toolbar>
     </AppBar>

@@ -28,8 +28,8 @@ const Dashboard: React.FC = () => {
   const [wsData, setWsData] = useState<WsData | null>(null);
   const [data, setData] = useState<Data | null>(null);
   const [ticker, setTicker] = useState<string>("AAPL");
-  const [startDate, setStartDate] = useState<string>("2020-01-01");
-  const [endDate, setEndDate] = useState<string>("2024-01-01");
+  const [startDate, setStartDate] = useState<string>("2022-01-01");
+  const [endDate, setEndDate] = useState<string>("2024-12-01");
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:6789");
