@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Container } from "@mui/material";
+import { Grid, Container, Card } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Chart from "../components/Chart";
 import Predictions from "../components/Predictions";
@@ -27,9 +27,9 @@ interface Data {
 const Dashboard: React.FC = () => {
   const [wsData, setWsData] = useState<WsData | null>(null);
   const [data, setData] = useState<Data | null>(null);
-  const [ticker, setTicker] = useState<string>('AAPL');
-  const [startDate, setStartDate] = useState<string>('2020-01-01');
-  const [endDate, setEndDate] = useState<string>('2024-01-01');
+  const [ticker, setTicker] = useState<string>("AAPL");
+  const [startDate, setStartDate] = useState<string>("2020-01-01");
+  const [endDate, setEndDate] = useState<string>("2024-01-01");
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:6789");
@@ -60,26 +60,44 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <Navbar />
-      <Container style={{ marginTop: "16px" }}>
-        <Grid container spacing={2}>
+      <Container style={{ marginTop: "24px", marginBottom: "24px" }}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={9}>
-            <Chart data={data} />
-            <Input
-              ticker={ticker}
-              startDate={startDate}
-              endDate={endDate}
-              setTicker={setTicker}
-              setStartDate={setStartDate}
-              setEndDate={setEndDate}
-              onFetch={getStock}
-            />
+            <Card elevation={3} style={{ padding: "16px" }}>
+              <Input
+                ticker={ticker}
+                startDate={startDate}
+                endDate={endDate}
+                setTicker={setTicker}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+                onFetch={getStock}
+              />
+            </Card>
+            <Card
+              elevation={3}
+              style={{ padding: "16px", marginTop: "16px" }}
+            >
+              <Chart data={data} />
+            </Card>
           </Grid>
+
           <Grid item xs={12} md={3}>
-            <Predictions data={data} wsData={wsData} />
-            <Technicals data={data} wsData={wsData} />
+            <Card
+              elevation={3}
+              style={{ padding: "16px", marginBottom: "16px" }}
+            >
+              <Predictions data={data} wsData={wsData} />
+            </Card>
+            <Card elevation={3} style={{ padding: "16px" }}>
+              <Technicals data={data} wsData={wsData} />
+            </Card>
           </Grid>
+
           <Grid item xs={12}>
-            <Chatbot />
+            <Card elevation={3} style={{ padding: "16px" }}>
+              <Chatbot />
+            </Card>
           </Grid>
         </Grid>
       </Container>

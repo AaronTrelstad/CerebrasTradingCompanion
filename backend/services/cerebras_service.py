@@ -7,6 +7,11 @@ from langchain_core.tools import tool
 from langchain_cerebras import ChatCerebras
 import os
 
+'''
+TODO
+
+'''
+
 load_dotenv()
 
 llm = ChatCerebras(model="llama3.1-70b", api_key=os.getenv("CEREBRAS_API_KEY"))

@@ -1,3 +1,4 @@
+import { Box, Button, CardActions, CircularProgress, TextField, Typography } from '@mui/material';
 import { useState, useEffect, useRef } from 'react';
 
 /**
@@ -67,86 +68,91 @@ const Chatbot = () => {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <h3>Trading Companion</h3>
+    <Box
+      sx={{
+        maxWidth: 800,
+        margin: "0 auto",
+        padding: 3,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Typography variant="h4" gutterBottom>
+        Trading Companion
+      </Typography>
 
-      <div
+      <Box
         ref={chatContainerRef}
-        style={{
-          maxHeight: '400px',
-          overflowY: 'auto',
-          border: '1px solid #ddd',
-          padding: '20px',
-          backgroundColor: '#f9f9f9',
-          borderRadius: '8px',
-          marginBottom: '10px',
-          display: 'flex',
-          flexDirection: 'column',
+        sx={{
+          maxHeight: 400,
+          overflowY: "auto",
+          border: "1px solid",
+          borderColor: "divider",
+          padding: 2,
+          backgroundColor: "background.paper",
+          borderRadius: 2,
+          marginBottom: 2,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {conversation.map((msg, index) => (
-          <div
+          <Box
             key={index}
-            style={{
-              textAlign: msg.role === 'user' ? 'right' : 'left',
-              marginBottom: '15px',
+            sx={{
+              textAlign: msg.role === "user" ? "right" : "left",
+              marginBottom: 2,
             }}
           >
-            <strong>{msg.role === 'user' ? 'You' : 'Bot'}:</strong>
-            <p
-              style={{
-                backgroundColor: msg.role === 'user' ? '#DCF8C6' : '#E4E6EB',
-                padding: '10px',
-                borderRadius: '8px',
-                maxWidth: '70%',
-                margin: '5px',
-                display: 'inline-block',
-                wordWrap: 'break-word',
-                fontSize: '14px',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word',
+            <Typography variant="subtitle2" gutterBottom>
+              <strong>{msg.role === "user" ? "You" : "Bot"}:</strong>
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                backgroundColor: msg.role === "user" ? "primary.light" : "grey.200",
+                padding: 1,
+                borderRadius: 2,
+                maxWidth: "70%",
+                marginX: msg.role === "user" ? "auto" : 0,
+                display: "inline-block",
+                wordWrap: "break-word",
+                whiteSpace: "pre-wrap",
               }}
-              dangerouslySetInnerHTML={{ __html: msg.message }} // Render HTML
+              dangerouslySetInnerHTML={{ __html: msg.message }}
             />
-          </div>
+          </Box>
         ))}
         {isLoading && (
-          <div style={{ textAlign: 'center', fontStyle: 'italic', marginTop: '10px' }}>
-            <p>Bot is typing...</p>
-          </div>
+          <Box sx={{ textAlign: "center", fontStyle: "italic", marginTop: 1 }}>
+            <Typography variant="body2">Bot is typing...</Typography>
+          </Box>
         )}
-      </div>
+      </Box>
 
-      <input
-        type="text"
+      <TextField
+        fullWidth
         value={userMessage}
         onChange={(e) => setUserMessage(e.target.value)}
         placeholder="Ask a question..."
-        style={{
-          width: '100%',
-          padding: '10px',
-          marginBottom: '10px',
-          borderRadius: '8px',
-          border: '1px solid #ddd',
-          fontSize: '16px',
-        }}
+        variant="outlined"
+        sx={{ marginBottom: 2 }}
       />
-      <button
-        onClick={handleSendMessage}
-        disabled={isLoading}
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#4CAF50',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          fontSize: '16px',
-        }}
-      >
-        {isLoading ? 'Sending...' : 'Send'}
-      </button>
-    </div>
+
+      <CardActions sx={{ justifyContent: "flex-end" }}>
+        <Button
+          onClick={handleSendMessage}
+          disabled={isLoading}
+          variant="contained"
+          color="primary"
+          size="large"
+          sx={{ borderRadius: 2 }}
+          startIcon={isLoading && <CircularProgress size={20} />}
+        >
+          {isLoading ? "Sending..." : "Send"}
+        </Button>
+      </CardActions>
+    </Box>
   );
 };
 
