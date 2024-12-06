@@ -11,7 +11,7 @@ load_dotenv()
 
 llm = ChatCerebras(model="llama3.1-70b", api_key=os.getenv("CEREBRAS_API_KEY"))
 
-checkpointer = MemorySaver()
+memory = MemorySaver()
 
 @tool
 def stock_search(query: str):
@@ -45,7 +45,7 @@ workflow.add_edge(START, "agent")
 workflow.add_conditional_edges("agent", should_continue) 
 workflow.add_edge("tools", "agent")
 
-app = workflow.compile(checkpointer=checkpointer)
+app = workflow.compile(checkpointer=memory)
 
 async def get_cerebras_response(user_message: str, thread_id: int):
     input_data = {"messages": [HumanMessage(content=user_message)]}
