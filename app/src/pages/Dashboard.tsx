@@ -21,6 +21,15 @@ interface Data {
   open: number;
 }
 
+const calculateDate = (offsetInDays: number): string => {
+  const date = new Date();
+  date.setDate(date.getDate() - offsetInDays);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 /**
  * Dashboard Component: Container for Chart, Chatbot, and Technical Analysis
  */
@@ -28,8 +37,8 @@ const Dashboard: React.FC = () => {
   const [wsData, setWsData] = useState<WsData | null>(null);
   const [data, setData] = useState<Data | null>(null);
   const [ticker, setTicker] = useState<string>("AAPL");
-  const [startDate, setStartDate] = useState<string>("2022-01-01");
-  const [endDate, setEndDate] = useState<string>("2024-12-01");
+  const [startDate, setStartDate] = useState<string>(calculateDate(14));
+  const [endDate, setEndDate] = useState<string>(calculateDate(0));
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:6789");
@@ -72,6 +81,7 @@ const Dashboard: React.FC = () => {
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 onFetch={getStock}
+                calculateDate={calculateDate}
               />
             </Card>
             <Card
