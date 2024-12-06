@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-interface InformationProps {
+interface TechnicalsProps {
   data: any;
   wsData: any;
 }
 
-const Information: React.FC<InformationProps> = ({ data, wsData }) => {
-  // Handle the possibility of empty or incorrect data format gracefully
+/**
+ * Component to display technical analysis
+ * 
+ * @param TechnicalsProps
+ * @returns Technicals Component
+ */
+const Technicals: React.FC<TechnicalsProps> = ({ data, wsData }) => {
   const hasData = Array.isArray(data) && data.length > 0;
+  const [high, setHigh] = useState<number>(0);
+  const [low, setLow] = useState<number>(0);
+
+  useEffect(() => {
+    if (hasData) {
+      const highs = data.map((item) => item.h || 0);
+      const lows = data.map((item) => item.l || 0);
+
+      setHigh(Math.max(...highs));
+      setLow(Math.min(...lows));
+    }
+  }, [data, hasData]);
 
   return (
     <Paper elevation={3} style={{ padding: '16px' }}>
@@ -18,7 +35,6 @@ const Information: React.FC<InformationProps> = ({ data, wsData }) => {
         Technical Data
       </Typography>
       <Grid container spacing={2}>
-        {/* Real-time WebSocket data */}
         {wsData && (
           <>
             <Grid item xs={6}>
@@ -31,8 +47,6 @@ const Information: React.FC<InformationProps> = ({ data, wsData }) => {
             </Grid>
           </>
         )}
-
-        {/* Data from the API */}
         {hasData && (
           <>
             <Grid item xs={6}>
@@ -45,11 +59,11 @@ const Information: React.FC<InformationProps> = ({ data, wsData }) => {
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body1">High:</Typography>
-              <Typography variant="body2">{data[0]?.h || 'N/A'}</Typography>
+              <Typography variant="body2">{high}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body1">Low:</Typography>
-              <Typography variant="body2">{data[0]?.l || 'N/A'}</Typography>
+              <Typography variant="body2">{low}</Typography>
             </Grid>
           </>
         )}
@@ -65,4 +79,4 @@ const Information: React.FC<InformationProps> = ({ data, wsData }) => {
   );
 };
 
-export default Information;
+export default Technicals;

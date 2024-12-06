@@ -2,22 +2,29 @@ import React, { useState, useEffect, useRef } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 
-interface PredictionsProps {
-  wsData: any;
+interface ChartProps {
+  data: any;
 }
 
-const Chart: React.FC<PredictionsProps> = ({ wsData }) => {
+/**
+ * Component to display the stock chart data
+ * 
+ * @param ChartProps
+ * @returns Chart Component
+ */
+const Chart: React.FC<ChartProps> = ({ data }) => {
   const chartRef = useRef<HighchartsReact.RefObject>(null);
 
   const [historicalData, setHistoricalData] = useState<Array<[number, number]>>([]);
 
   useEffect(() => {
-    if (wsData?.timestamp && wsData?.price) {
-      const newDataPoint: [number, number] = [Number(wsData.timestamp), Number(wsData.price)];
-
-      setHistoricalData((prevData) => [...prevData, newDataPoint]);
+    if (chartRef && chartRef.current && data) {
+      console.log(data)
+      setHistoricalData(
+        data.map((cell: { t: any; c: any; }) => [cell.t, cell.c])
+      );
     }
-  }, [wsData]);
+  }, [data]);
 
   const options: Highcharts.Options = {
     chart: {
@@ -46,7 +53,7 @@ const Chart: React.FC<PredictionsProps> = ({ wsData }) => {
       {
         type: 'line',
         name: 'Stock Price',
-        data: historicalData, 
+        data: historicalData,
       },
     ],
   };

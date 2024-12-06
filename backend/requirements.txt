@@ -1,7 +1,9 @@
 langchain
 langchain-cerebras
 langchain-core
-streamlit
 duckduckgo-search
 wikipedia
+llama-index-llms-cerebras
+llama-index
 cerebras_cloud_sdk
+llama-index-callbacks-arize-phoenix

@@ -6,6 +6,12 @@ interface PredictionsProps {
   wsData: any
 }
 
+/**
+ * Component to display the AI generate predictions
+ * 
+ * @param PredictionsProps
+ * @returns Predictions Component
+ */
 const Predictions: React.FC<PredictionsProps> = ({ data, wsData }) => {
   if (!data) {
     return <div>Loading...</div>;

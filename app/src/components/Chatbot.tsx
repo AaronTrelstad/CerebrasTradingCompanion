@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 
+/**
+ * Component to render the chatbot
+ * 
+ * @returns Chatbot Component
+ */
 const Chatbot = () => {
   const [userMessage, setUserMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
