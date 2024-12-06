@@ -24,7 +24,7 @@ def chat():
         return jsonify({"error": "Message is required"}), 400
     
     try:
-        response = asyncio.run(get_cerebras_response(user_message))
+        response = asyncio.run(get_cerebras_response(user_message, thread_id=1))
         return jsonify({"message": response})
     except Exception as e:
         print(f"Error during chat: {e}")
